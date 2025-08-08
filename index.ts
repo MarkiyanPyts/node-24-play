@@ -2,21 +2,24 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+app.use(express.json())
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 })
 
 app.get('/:id', (req, res) => {
-    console.log(req.params)
-    res.json({
+    const params = {
         ...req.params
-    })
+    }
+    res.json(params);
 })
 
-app.get('/', (req, res) => {
-    console.log(req.params)
+app.post('/add', (req, res) => {
+    const body = req.body
+    console.log(body)
     res.json({
-        ...req.params
+        'rer': 5
     })
 })
 
