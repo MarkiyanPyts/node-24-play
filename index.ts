@@ -1,11 +1,23 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 3000;
 
+
+console.log('env', process.env.OPENAI_API_KEY)
+
+
 app.use(express.json())
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/', async (req, res) => {
+    const query = req.query.q;
+    console.log('query', query)
+    const {historyTutor, run} = await import('./agent.mts')
+    const result = await run(historyTutor, query)
+    console.log(result.finalOutput)
+    res.json({
+        response: result.finalOutput
+    });
 })
 
 app.get('/:id', (req, res) => {

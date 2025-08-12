@@ -18,7 +18,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "@openai/agents": "^0.0.15",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "zod": "<=3.25.67"
   },
   "devDependencies": {
     "@types/node": "^24.2.1"
