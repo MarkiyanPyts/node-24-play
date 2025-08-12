@@ -21,7 +21,8 @@ app.get('/', async (req, res) => {
     // .pipe(process.stdout);
   
     const streamResult = result.toTextStream({compatibleWithNodeStreams: true});
-    res.setHeader('Content-Type', 'text/plain');
+    //res.setHeader('Content-Type', 'text/plain');
+    streamResult.pipe(process.stdout)
     streamResult.pipe(res);
 })
 
