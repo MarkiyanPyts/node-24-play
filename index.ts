@@ -13,11 +13,16 @@ app.get('/', async (req, res) => {
     const query = req.query.q;
     console.log('query', query)
     const {historyTutor, run} = await import('./agent.mts')
-    const result = await run(historyTutor, query)
-    console.log(result.finalOutput)
-    res.json({
-        response: result.finalOutput
-    });
+    const result = await run(historyTutor, query, {
+        stream: true
+    })
+
+    // const streamResult = result.toTextStream({compatibleWithNodeStreams: true})
+    // .pipe(process.stdout);
+  
+    const streamResult = result.toTextStream({compatibleWithNodeStreams: true});
+    res.setHeader('Content-Type', 'text/plain');
+    streamResult.pipe(res);
 })
 
 app.get('/:id', (req, res) => {
